@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from "react";
+import { useDispatch } from '../store/store'
 
 const LOCATION_URL = 'https://randomuser.me/api/?results=20'
 
@@ -12,7 +13,7 @@ type Results = {
 }
 const useLocations = () => {
   const [locations, setLocations] = useState<Array<KeyValue>>([]);
-
+  useDispatch()({ type: 'LOCATIONS_LOADING' })
   useEffect(() => {
     const fetchLocations = async () => {
       const { data: { results  } } = await axios.get(LOCATION_URL);

@@ -1,7 +1,19 @@
-import { combineReducers, createStore } from "redux";
-import { locationReducer } from "./locationReducer";
+import { createStore, combineReducers } from 'redux'
+import { useDispatch as _useDispatch } from 'react-redux'
+import locationReducer from './locationReducer';
+import {  LocationStoreEvent } from './locationActions'
 
-export const store = createStore(
-  combineReducers({locations: locationReducer})
-);
-console.log(store.getState())
+type StoreEvent = LocationStoreEvent
+
+export const useDispatch = () => {
+  const dispatch = _useDispatch()
+  return (event: StoreEvent) => {
+    dispatch(event)
+  }
+}
+
+export default createStore(
+  combineReducers({
+    locations: locationReducer,
+  })
+)

@@ -1,26 +1,30 @@
-import { FETCH_LOCATIONS, FetchLocationAction } from './locationActions';
-import { KeyValue } from './../LocationList/useLocations';
+import { LocationStoreEvent, LocationsStore } from './locationActions';
 
-export interface LocationState {
-  locations: Array<KeyValue>;
+const initial: LocationsStore = {
+  status: 'init',
+  data: []
 }
 
-const initialState = {
-  locations: [],
-};
-
-
-
-export const locationReducer = (
-  action: FetchLocationAction,
-  state: LocationState = initialState,
-) => {
-  if(!action) return state;
-  switch (action.type) {
-    case FETCH_LOCATIONS: {
-      return { ...state, notes: [...state.locations, action.payload] };
-    }
+const locationReducer = (
+  event: LocationStoreEvent,
+  state: LocationsStore = initial,
+): LocationsStore => {
+  if(!event) return state;
+  switch (event.type) {
+    case 'LOCATIONS_LOADING':
+      return {
+        ...state,
+        status: 'loading'
+      }
+    case 'LOCATIONS_LOADED':
+      return {
+        ...state,
+        status: 'loaded',
+        data: event.data
+      }
     default:
-      return state;
+      return state
   }
-};
+}
+
+export default locationReducer

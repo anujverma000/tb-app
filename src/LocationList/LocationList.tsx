@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useLocations, { KeyValue } from './useLocations'
 import { Table, Form } from 'react-bootstrap'
 import { ArrowUp, ArrowDown } from 'react-bootstrap-icons';
-
+import { useDispatch } from '../store/store'
 const hasObjValue = (obj: KeyValue, value:string | number): boolean => {
   return JSON.stringify(Object.values(obj)).toLowerCase().indexOf(String(value).toLowerCase()) >= 0
 }
@@ -14,6 +14,7 @@ const LocationList = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder | undefined>()
   const [sortField, setSortfield] = useState<string>('')
   const locations = useLocations()
+  useDispatch()({ type: 'LOCATIONS_LOADED', data: locations })
 
   const [filteredLocations, setFilteredLocations] = useState<Array<KeyValue>>(locations)
   useEffect(() => {
