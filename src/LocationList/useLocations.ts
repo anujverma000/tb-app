@@ -12,6 +12,7 @@ type Results = {
 }
 const useLocations = () => {
   const [locations, setLocations] = useState<Array<KeyValue>>([]);
+
   useEffect(() => {
     const fetchLocations = async () => {
       const { data: { results  } } = await axios.get(LOCATION_URL);
